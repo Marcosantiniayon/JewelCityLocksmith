@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import { Phone, Menu, X } from "lucide-react"
 import { JewelCityLogo } from "@/components/logo"
 
@@ -37,6 +38,9 @@ export function Header() {
             <a href="#testimonials" className="text-foreground/80 hover:text-primary transition-colors">
               Reviews
             </a>
+            <Link href="/blog" className="text-foreground/80 hover:text-primary transition-colors">
+              Blog
+            </Link>
             <a href="#contact" className="text-foreground/80 hover:text-primary transition-colors">
               Contact
             </a>
@@ -71,6 +75,9 @@ export function Header() {
               <a href="#testimonials" className="text-foreground/80 hover:text-primary transition-colors py-2">
                 Reviews
               </a>
+              <Link href="/blog" className="text-foreground/80 hover:text-primary transition-colors py-2">
+                Blog
+              </Link>
               <a href="#contact" className="text-foreground/80 hover:text-primary transition-colors py-2">
                 Contact
               </a>

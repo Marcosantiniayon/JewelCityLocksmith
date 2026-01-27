@@ -1,2 +1,11 @@
 # Local env overrides
 .env.local
+
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+
+# OS files
+.DS_Store

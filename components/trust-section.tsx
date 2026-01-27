@@ -11,7 +11,7 @@ export function TrustSection() {
           <div className="relative">
             <div className="aspect-[4/5] rounded-lg overflow-hidden border-4 border-primary/20">
               <img
-                src="/images/b0eb12f7-1a36-4eb0-9aea-1533b848b377.jpg"
+                src="/images/IMG_8657.jpg"
                 alt="Jewel City Locksmith owner"
                 className="w-full h-full object-cover"
               />
