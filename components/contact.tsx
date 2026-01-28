@@ -15,11 +15,45 @@ export function Contact() {
     service: "",
     message: "",
   })
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Handle form submission
-    alert("Thank you! We will contact you shortly.")
+    if (status === "sending") return
+    setStatus("sending")
+
+    try {
+      const response = await fetch("https://formspree.io/f/xojwqdak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          city: formData.city,
+          service: formData.service,
+          message: formData.message,
+          _subject: "New Jewel City Locksmith Quote Request",
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to submit")
+      }
+
+      setStatus("success")
+      setFormData({
+        name: "",
+        phone: "",
+        city: "",
+        service: "",
+        message: "",
+      })
+    } catch {
+      setStatus("error")
+    }
   }
 
   return (
@@ -32,10 +66,10 @@ export function Contact() {
           <div className="space-y-8">
             <div>
               <a
-                href="tel:+18185551234"
+                href="tel:+18189130155"
                 className="text-4xl md:text-5xl font-bold text-primary hover:text-primary/80 transition-colors"
               >
-                (818) 555-1234
+                (818) 913-0155
               </a>
             </div>
 
@@ -58,7 +92,7 @@ export function Contact() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-bold px-8"
               >
-                <a href="tel:+18185551234">
+                <a href="tel:+18189130155">
                   <Phone className="size-5 mr-2" />
                   CALL NOW
                 </a>
@@ -69,6 +103,7 @@ export function Contact() {
           {/* Quote form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
+              name="name"
               placeholder="Your Name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -77,6 +112,7 @@ export function Contact() {
             />
             <Input
               type="tel"
+              name="phone"
               placeholder="Phone Number"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -84,12 +120,14 @@ export function Contact() {
               required
             />
             <Input
+              name="city"
               placeholder="City"
               value={formData.city}
               onChange={(e) => setFormData({ ...formData, city: e.target.value })}
               className="bg-card border-border text-foreground placeholder:text-muted-foreground"
             />
             <select
+              name="service"
               value={formData.service}
               onChange={(e) => setFormData({ ...formData, service: e.target.value })}
               className="w-full h-9 rounded-md border border-border bg-card px-3 py-1 text-foreground"
@@ -103,6 +141,7 @@ export function Contact() {
               <option value="other">Other</option>
             </select>
             <textarea
+              name="message"
               placeholder="Message (optional)"
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -112,9 +151,18 @@ export function Contact() {
               type="submit"
               size="lg"
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full font-bold"
+              disabled={status === "sending"}
             >
-              REQUEST A QUOTE
+              {status === "sending" ? "SENDING..." : "REQUEST A QUOTE"}
             </Button>
+            <div aria-live="polite" className="text-sm">
+              {status === "success" ? (
+                <p className="text-emerald-400">Thanks! We’ll be in touch shortly.</p>
+              ) : null}
+              {status === "error" ? (
+                <p className="text-red-400">Something went wrong. Please call or try again.</p>
+              ) : null}
+            </div>
           </form>
         </div>
       </div>

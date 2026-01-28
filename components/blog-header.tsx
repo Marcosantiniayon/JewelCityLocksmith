@@ -17,9 +17,9 @@ export function BlogHeader() {
             <Link href="/blog" className="text-foreground/80 hover:text-primary transition-colors">
               Blog
             </Link>
-            <a href="tel:+18185551234" className="hidden md:flex items-center gap-2 text-primary font-semibold">
+            <a href="tel:+18189130155" className="hidden md:flex items-center gap-2 text-primary font-semibold">
               <Phone className="size-4" />
-              (818) 555-1234
+              (818) 913-0155
             </a>
           </nav>
         </div>

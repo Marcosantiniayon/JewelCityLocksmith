@@ -47,9 +47,9 @@ export function Header() {
           </nav>
 
           {/* Phone CTA */}
-          <a href="tel:+18185551234" className="hidden md:flex items-center gap-2 text-primary font-bold text-lg">
+          <a href="tel:+18189130155" className="hidden md:flex items-center gap-2 text-primary font-bold text-lg">
             <Phone className="size-5" />
-            (818) 555-1234
+            (818) 913-0155
           </a>
 
           {/* Mobile Menu Button */}

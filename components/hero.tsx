@@ -73,7 +73,7 @@ export function Hero() {
             size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 rounded-full font-bold"
           >
-            <a href="tel:+18185551234">
+            <a href="tel:+18189130155">
               <Phone className="size-5 mr-2" />
               CALL NOW
             </a>

@@ -17,8 +17,8 @@ export function Footer() {
             <h3 className="font-bold text-foreground mb-4">Contact</h3>
             <div className="flex items-center gap-2 text-foreground/70 text-sm">
               <Phone className="size-4 text-primary" />
-              <a href="tel:+18185551234" className="hover:text-primary">
-                (818) 555-1234
+              <a href="tel:+18189130155" className="hover:text-primary">
+                (818) 913-0155
               </a>
             </div>
             <div className="flex items-center gap-2 text-foreground/70 text-sm">
