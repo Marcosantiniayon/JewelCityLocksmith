@@ -22,7 +22,12 @@ export function ServiceArea() {
             
             {/* SVG Map with positioned cities */}
             <div className="relative w-full aspect-[4/3] md:aspect-[16/9] p-4">
-              <svg viewBox="0 0 800 450" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                viewBox="0 0 800 450"
+                className="w-full h-full scale-[1.18] sm:scale-[1.1] md:scale-100 -translate-x-2 sm:-translate-x-1 md:translate-x-0 origin-center"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+              
                 {/* Gradient definitions */}
                 <defs>
                   <radialGradient id="serviceRadius" cx="50%" cy="50%" r="50%">

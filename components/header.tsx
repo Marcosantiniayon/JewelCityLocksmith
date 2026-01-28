@@ -64,21 +64,41 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-background/95 backdrop-blur-md pb-4">
+          <div className="md:hidden bg-card/95 backdrop-blur-md border border-border/60 shadow-2xl pb-4 mt-2 rounded-2xl">
             <nav className="flex flex-col gap-4 px-4">
-              <a href="#services" className="text-foreground/80 hover:text-primary transition-colors py-2">
+              <a
+                href="#services"
+                className="text-foreground/80 hover:text-primary transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Services
               </a>
-              <a href="#why-us" className="text-foreground/80 hover:text-primary transition-colors py-2">
+              <a
+                href="#why-us"
+                className="text-foreground/80 hover:text-primary transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Why Us
               </a>
-              <a href="#testimonials" className="text-foreground/80 hover:text-primary transition-colors py-2">
+              <a
+                href="#testimonials"
+                className="text-foreground/80 hover:text-primary transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Reviews
               </a>
-              <Link href="/blog" className="text-foreground/80 hover:text-primary transition-colors py-2">
+              <Link
+                href="/blog"
+                className="text-foreground/80 hover:text-primary transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Blog
               </Link>
-              <a href="#contact" className="text-foreground/80 hover:text-primary transition-colors py-2">
+              <a
+                href="#contact"
+                className="text-foreground/80 hover:text-primary transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Contact
               </a>
             </nav>

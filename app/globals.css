@@ -5,6 +5,7 @@
 
 /* Updated theme for dark locksmith design with orange accent */
 :root {
+  --scroll-offset: 1.5rem;
   --background: oklch(0.13 0.01 240);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.18 0.01 240);
@@ -38,6 +39,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --scroll-offset: 4.5rem;
+  }
 }
 
 @theme inline {
@@ -87,5 +94,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  html {
+    scroll-padding-top: var(--scroll-offset);
+  }
+  section[id] {
+    scroll-margin-top: var(--scroll-offset);
   }
 }
