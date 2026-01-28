@@ -1,4 +1,4 @@
-const fallbackUrl = "https://www.jewel-city-locksmith.vercel.app"
+const fallbackUrl = "https://jewel-city-locksmith.vercel.app"
 
 function normalizeUrl(url?: string) {
   if (!url) return fallbackUrl
