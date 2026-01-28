@@ -22,10 +22,18 @@ export const POST_QUERY = groq`
     slug,
     excerpt,
     publishedAt,
+    _updatedAt,
     mainImage {
       ...,
       asset->
     },
     body
+  }
+`
+
+export const POST_SLUGS_QUERY = groq`
+  *[_type == "post" && defined(slug.current)] {
+    "slug": slug.current,
+    _updatedAt
   }
 `

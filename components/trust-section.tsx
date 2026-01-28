@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export function TrustSection() {
   return (
     <section className="py-20 bg-card">
@@ -9,11 +11,13 @@ export function TrustSection() {
         <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
           {/* Owner photo */}
           <div className="relative">
-            <div className="aspect-[4/5] rounded-lg overflow-hidden border-4 border-primary/20">
-              <img
+            <div className="aspect-[4/5] rounded-lg overflow-hidden border-4 border-primary/20 relative">
+              <Image
                 src="/images/IMG_8657.jpg"
                 alt="Jewel City Locksmith owner"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className="object-cover"
               />
             </div>
           </div>

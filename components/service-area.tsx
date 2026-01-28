@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site"
+
 export function ServiceArea() {
   return (
     <section className="py-16 bg-background">
@@ -260,6 +262,20 @@ export function ServiceArea() {
             <p className="text-foreground/60 text-sm mt-2">
               Available 24/7 with fast response times throughout our service area
             </p>
+            <div className="mt-6">
+              <details className="group mx-auto max-w-4xl rounded-xl border border-border/60 bg-card/50 px-5 py-4 text-left">
+                <summary className="cursor-pointer list-none text-sm font-semibold text-foreground/80 transition-colors group-open:text-primary">
+                  View full list of service cities
+                </summary>
+                <div className="mt-4 grid grid-cols-2 gap-2 text-xs text-foreground/70 sm:grid-cols-3 md:grid-cols-4">
+                  {siteConfig.areaServed.map((city) => (
+                    <span key={city} className="rounded-md border border-border/40 bg-background/40 px-2 py-1">
+                      {city}
+                    </span>
+                  ))}
+                </div>
+              </details>
+            </div>
           </div>
         </div>
       </div>

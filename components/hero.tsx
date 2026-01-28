@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { JewelCityLogo } from "@/components/logo"
@@ -14,12 +15,16 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background image with overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('/dark-car-door-lock-being-picked-by-locksmith-hands.jpg')`,
-        }}
-      />
+      <div className="absolute inset-0">
+        <Image
+          src="/dark-car-door-lock-being-picked-by-locksmith-hands.jpg"
+          alt="Locksmith working on a car door lock"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/85 to-background" />
 
       <div className="relative z-10 container mx-auto px-4 text-center py-12">

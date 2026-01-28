@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { format } from "date-fns"
 import { BlogHeader } from "@/components/blog-header"
@@ -49,12 +50,15 @@ export default async function BlogIndexPage() {
               return (
                 <article key={post._id} className="rounded-2xl border border-border bg-card p-6">
                   {imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt={post.mainImage?.alt || post.title}
-                      className="h-56 w-full rounded-xl object-cover"
-                      loading="lazy"
-                    />
+                    <div className="relative h-56 w-full overflow-hidden rounded-xl">
+                      <Image
+                        src={imageUrl}
+                        alt={post.mainImage?.alt || post.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 800px"
+                        className="object-cover"
+                      />
+                    </div>
                   ) : null}
                   <div className="mt-4 text-sm text-foreground/60">
                     {post.publishedAt ? (
