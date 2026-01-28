@@ -16,13 +16,6 @@ export const siteConfig = {
   defaultShareImage: "/images/img-8641.jpeg",
   phone: "(818) 913-0155",
   phoneE164: "+18189130155",
-  address: {
-    streetAddress: "331 Western Ave",
-    addressLocality: "Gangsterdale",
-    addressRegion: "CA",
-    postalCode: "91201",
-    addressCountry: "US",
-  },
   hours: {
     opens: "00:00",
     closes: "23:59",

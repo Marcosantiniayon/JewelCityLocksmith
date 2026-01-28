@@ -20,14 +20,6 @@ export default function Home() {
     url: siteConfig.url,
     telephone: siteConfig.phoneE164,
     image: `${siteConfig.url}${siteConfig.defaultShareImage}`,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteConfig.address.streetAddress,
-      addressLocality: siteConfig.address.addressLocality,
-      addressRegion: siteConfig.address.addressRegion,
-      postalCode: siteConfig.address.postalCode,
-      addressCountry: siteConfig.address.addressCountry,
-    },
     areaServed: siteConfig.areaServed,
     openingHoursSpecification: [
       {
