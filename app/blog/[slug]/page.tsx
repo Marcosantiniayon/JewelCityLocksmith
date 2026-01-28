@@ -19,12 +19,16 @@ type Post = {
   body?: Array<unknown>
 }
 
+type RouteParams = {
+  slug: string | string[]
+}
+
 async function getPost(slug: string): Promise<Post | null> {
   if (!client) return null
   return client.fetch(POST_QUERY, { slug })
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: RouteParams | Promise<RouteParams> }) {
   if (!hasSanityConfig) {
     return (
       <div className="min-h-screen bg-background text-foreground">
@@ -40,7 +44,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     )
   }
 
-  const post = await getPost(params.slug)
+  const resolvedParams = await Promise.resolve(params)
+  const slugValue = Array.isArray(resolvedParams.slug) ? resolvedParams.slug[0] : resolvedParams.slug
+
+  if (!slugValue) {
+    notFound()
+  }
+
+  const post = await getPost(slugValue)
 
   if (!post) {
     notFound()
