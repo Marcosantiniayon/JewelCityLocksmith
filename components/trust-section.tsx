@@ -52,6 +52,14 @@ export function TrustSection() {
                   <p className="text-foreground/70">Full credentials for your peace of mind and protection.</p>
                 </div>
               </div>
+
+              <div className="flex items-start gap-3">
+                <span className="text-primary text-2xl">✓</span>
+                <div>
+                  <h3 className="text-lg font-bold text-foreground">7+ Years of Experience</h3>
+                  <p className="text-foreground/70">Hands-on expertise across residential, automotive, and commercial work.</p>
+                </div>
+              </div>
             </div>
 
             <p className="text-foreground/80 leading-relaxed border-l-4 border-primary pl-4">

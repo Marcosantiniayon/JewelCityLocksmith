@@ -5,7 +5,7 @@ const reasons = [
   { icon: Zap, text: "Fast Response Time" },
   { icon: Shield, text: "Licensed & Insured" },
   { icon: DollarSign, text: "Affordable Pricing" },
-  { icon: Users, text: "Trusted by Hundreds of Local Residents" },
+  { icon: Users, text: "Owner-Operated, Community-Focused" },
   { icon: ThumbsUp, text: "Professional, Respectful Service" },
 ]
 

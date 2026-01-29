@@ -23,7 +23,9 @@ export function Testimonials() {
     <section id="testimonials" className="py-20 bg-card">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-4">What Our Customers Say</h2>
-        <p className="text-center text-foreground/60 mb-12 text-sm">Based on real Google reviews</p>
+        <p className="text-center text-foreground/60 mb-12 text-sm">
+          Sample feedback shown until verified reviews are added
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {testimonials.map((testimonial, index) => (
@@ -34,7 +36,7 @@ export function Testimonials() {
                 ))}
               </div>
               <p className="text-foreground/80 italic mb-4">{`"${testimonial.quote}"`}</p>
-              <p className="text-foreground font-semibold">— {testimonial.author}</p>
+              <p className="text-foreground font-semibold">— {testimonial.author} (Sample)</p>
             </div>
           ))}
         </div>

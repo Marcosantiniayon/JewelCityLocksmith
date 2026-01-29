@@ -4,7 +4,7 @@ const faqs = [
   {
     question: "How quickly can a locksmith arrive?",
     answer:
-      "We typically arrive within 15-30 minutes for emergency calls in our service area. Response times may vary depending on location and current demand, but we always prioritize urgent situations.",
+      "We typically arrive within 15-25 minutes for emergency calls in our service area. Response times may vary depending on location and traffic, but we always prioritize urgent situations.",
   },
   {
     question: "How much does a locksmith cost?",
