@@ -4,7 +4,6 @@ import { Services } from "@/components/services"
 import { EquipmentGallery } from "@/components/equipment-gallery"
 import { TrustSection } from "@/components/trust-section"
 import { WhyChooseUs } from "@/components/why-choose-us"
-import { Testimonials } from "@/components/testimonials"
 import { ServiceArea } from "@/components/service-area"
 import { FAQ } from "@/components/faq"
 import { Contact } from "@/components/contact"
@@ -51,7 +50,6 @@ export default function Home() {
       <EquipmentGallery />
       <TrustSection />
       <WhyChooseUs />
-      <Testimonials />
       <ServiceArea />
       <FAQ />
       <Contact />

@@ -1,5 +1,5 @@
 import { JewelCityLogo } from "@/components/logo"
-import { Phone, Mail, Clock } from "lucide-react"
+import { Phone, Clock } from "lucide-react"
 
 export function Footer() {
   return (
@@ -19,12 +19,6 @@ export function Footer() {
               <Phone className="size-4 text-primary" />
               <a href="tel:+18189130155" className="hover:text-primary">
                 (818) 913-0155
-              </a>
-            </div>
-            <div className="flex items-center gap-2 text-foreground/70 text-sm">
-              <Mail className="size-4 text-primary" />
-              <a href="mailto:info@jewelcitylocksmith.com" className="hover:text-primary">
-                info@jewelcitylocksmith.com
               </a>
             </div>
             <div className="flex items-center gap-2 text-foreground/70 text-sm">

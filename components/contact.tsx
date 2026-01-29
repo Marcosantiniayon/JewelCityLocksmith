@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Phone, Mail, MapPin } from "lucide-react"
+import { Phone, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -74,12 +74,6 @@ export function Contact() {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center gap-3 text-foreground/80">
-                <Mail className="size-5 text-primary" />
-                <a href="mailto:info@jewelcitylocksmith.com" className="hover:text-primary transition-colors">
-                  info@jewelcitylocksmith.com
-                </a>
-              </div>
               <div className="flex items-center gap-3 text-foreground/80">
                 <MapPin className="size-5 text-primary" />
                 <span>Glendale, CA</span>
