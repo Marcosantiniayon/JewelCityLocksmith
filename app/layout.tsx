@@ -54,19 +54,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
       { url: "/favicon.ico" },
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
+      { url: "/images/logo.ico", type: "image/x-icon" },
     ],
     apple: "/apple-icon.png",
   },
