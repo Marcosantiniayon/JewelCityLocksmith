@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { format } from "date-fns"
-import { PortableText } from "@portabletext/react"
+import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import { BlogHeader } from "@/components/blog-header"
 import { client, hasSanityConfig } from "@/lib/sanity.client"
 import { POST_QUERY } from "@/lib/sanity.queries"
@@ -30,6 +30,56 @@ type RouteParams = {
 async function getPost(slug: string): Promise<Post | null> {
   if (!client) return null
   return client.fetch(POST_QUERY, { slug })
+}
+
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    h1: ({ children }) => <h1 className="mb-6 mt-14 text-4xl font-bold leading-tight text-foreground">{children}</h1>,
+    normal: ({ children }) => <p className="mb-6 text-lg leading-relaxed text-foreground/85">{children}</p>,
+    h2: ({ children }) => <h2 className="mb-4 mt-12 text-3xl font-semibold leading-tight text-foreground">{children}</h2>,
+    h3: ({ children }) => <h3 className="mb-3 mt-10 text-2xl font-semibold leading-tight text-foreground">{children}</h3>,
+    h4: ({ children }) => <h4 className="mb-3 mt-8 text-xl font-semibold leading-tight text-foreground">{children}</h4>,
+    h5: ({ children }) => <h5 className="mb-2 mt-8 text-lg font-semibold leading-tight text-foreground">{children}</h5>,
+    h6: ({ children }) => <h6 className="mb-2 mt-8 text-base font-semibold uppercase tracking-wide text-foreground/90">{children}</h6>,
+    blockquote: ({ children }) => (
+      <blockquote className="mb-6 border-l-2 border-primary/50 pl-4 text-lg italic leading-relaxed text-foreground/75">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="mb-6 list-disc space-y-2 pl-6 text-lg leading-relaxed text-foreground/85">{children}</ul>,
+    number: ({ children }) => (
+      <ol className="mb-6 list-decimal space-y-2 pl-6 text-lg leading-relaxed text-foreground/85">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="pl-1">{children}</li>,
+    number: ({ children }) => <li className="pl-1">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+    em: ({ children }) => <em className="italic text-foreground/90">{children}</em>,
+    code: ({ children }) => (
+      <code className="rounded bg-secondary px-1.5 py-0.5 font-mono text-sm text-foreground">{children}</code>
+    ),
+    link: ({ children, value }) => {
+      const href = typeof value?.href === "string" ? value.href : "#"
+      const isExternal = href.startsWith("http")
+
+      return (
+        <a
+          href={href}
+          className="text-primary underline underline-offset-4 transition-colors hover:text-primary/80"
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      )
+    },
+  },
+  hardBreak: () => <br />,
 }
 
 export async function generateMetadata({
@@ -174,9 +224,9 @@ export default async function BlogPostPage({ params }: { params: RouteParams | P
           </div>
         ) : null}
 
-        <article className="prose prose-invert prose-headings:text-foreground prose-p:text-foreground/80 prose-a:text-primary mt-10 max-w-3xl">
-          {post.excerpt ? <p className="text-lg text-foreground/70">{post.excerpt}</p> : null}
-          {post.body ? <PortableText value={post.body} /> : null}
+        <article className="mt-10 max-w-3xl">
+          {post.excerpt ? <p className="mb-6 text-lg leading-relaxed text-foreground italic">{post.excerpt}</p> : null}
+          {post.body ? <PortableText value={post.body} components={portableTextComponents} /> : null}
         </article>
       </main>
     </div>
