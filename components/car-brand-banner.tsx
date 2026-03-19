@@ -28,10 +28,11 @@ const carBrands = [
 export function CarBrandBanner() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const loopWidthRef = useRef(0)
   const isPausedRef = useRef(false)
   const [activeMobileIndex, setActiveMobileIndex] = useState(0)
   const activeMobileIndexRef = useRef(0)
-  const scrollingBrands = [...carBrands, ...carBrands]
+  const scrollingBrands = [...carBrands, ...carBrands, ...carBrands]
 
   const pauseAutoScroll = () => {
     isPausedRef.current = true
@@ -71,21 +72,51 @@ export function CarBrandBanner() {
     }
   }, [])
 
+  const normalizeLoopPosition = useCallback((position: number) => {
+    const loopWidth = loopWidthRef.current
+    if (!loopWidth) return position
+
+    const minBoundary = loopWidth * 0.5
+    const maxBoundary = loopWidth * 1.5
+    let normalizedPosition = position
+
+    if (normalizedPosition <= minBoundary) {
+      normalizedPosition += loopWidth
+    } else if (normalizedPosition >= maxBoundary) {
+      normalizedPosition -= loopWidth
+    }
+
+    return normalizedPosition
+  }, [])
+
   useEffect(() => {
     const container = scrollContainerRef.current
     if (!container) return
 
     let animationFrame = 0
-    const step = 0.5
+    let lastTimestamp = performance.now()
+    const speedPxPerSecond = 30
+    loopWidthRef.current = container.scrollWidth / 3
+    const startingPosition = loopWidthRef.current
+    container.scrollLeft = startingPosition
+    let virtualScrollLeft = startingPosition
 
-    const animate = () => {
+    const animate = (timestamp: number) => {
+      const deltaMs = timestamp - lastTimestamp
+      lastTimestamp = timestamp
+
       if (!isPausedRef.current) {
-        container.scrollLeft += step
-        const resetPoint = container.scrollWidth / 2
-        if (container.scrollLeft >= resetPoint) {
-          container.scrollLeft -= resetPoint
+        virtualScrollLeft += (speedPxPerSecond * deltaMs) / 1000
+        virtualScrollLeft = normalizeLoopPosition(virtualScrollLeft)
+        container.scrollLeft = virtualScrollLeft
+      } else {
+        // Keep autoplay position in sync with manual swipe/scroll while paused.
+        virtualScrollLeft = normalizeLoopPosition(container.scrollLeft)
+        if (virtualScrollLeft !== container.scrollLeft) {
+          container.scrollLeft = virtualScrollLeft
         }
       }
+
       updateActiveBrand()
       animationFrame = window.requestAnimationFrame(animate)
     }
@@ -99,7 +130,7 @@ export function CarBrandBanner() {
         window.clearTimeout(pauseTimeoutRef.current)
       }
     }
-  }, [updateActiveBrand])
+  }, [normalizeLoopPosition, updateActiveBrand])
 
   return (
     <section className="border-y border-border/60 bg-card/70 py-6 md:py-8">
