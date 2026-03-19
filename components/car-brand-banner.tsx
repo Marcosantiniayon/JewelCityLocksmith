@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 
 const carBrands = [
@@ -29,6 +29,8 @@ export function CarBrandBanner() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isPausedRef = useRef(false)
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0)
+  const activeMobileIndexRef = useRef(0)
   const scrollingBrands = [...carBrands, ...carBrands]
 
   const pauseAutoScroll = () => {
@@ -40,6 +42,34 @@ export function CarBrandBanner() {
       isPausedRef.current = false
     }, 1400)
   }
+
+  const updateActiveBrand = useCallback(() => {
+    const container = scrollContainerRef.current
+    if (!container) return
+
+    const cards = container.children
+    if (!cards.length) return
+
+    const containerCenter = container.scrollLeft + container.clientWidth / 2
+    let closestIndex = 0
+    let smallestDistance = Number.POSITIVE_INFINITY
+
+    for (let index = 0; index < cards.length; index += 1) {
+      const card = cards[index] as HTMLElement
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2
+      const distance = Math.abs(cardCenter - containerCenter)
+
+      if (distance < smallestDistance) {
+        smallestDistance = distance
+        closestIndex = index
+      }
+    }
+
+    if (closestIndex !== activeMobileIndexRef.current) {
+      activeMobileIndexRef.current = closestIndex
+      setActiveMobileIndex(closestIndex)
+    }
+  }, [])
 
   useEffect(() => {
     const container = scrollContainerRef.current
@@ -56,9 +86,11 @@ export function CarBrandBanner() {
           container.scrollLeft -= resetPoint
         }
       }
+      updateActiveBrand()
       animationFrame = window.requestAnimationFrame(animate)
     }
 
+    updateActiveBrand()
     animationFrame = window.requestAnimationFrame(animate)
 
     return () => {
@@ -67,7 +99,7 @@ export function CarBrandBanner() {
         window.clearTimeout(pauseTimeoutRef.current)
       }
     }
-  }, [])
+  }, [updateActiveBrand])
 
   return (
     <section className="border-y border-border/60 bg-card/70 py-6 md:py-8">
@@ -90,14 +122,20 @@ export function CarBrandBanner() {
             {scrollingBrands.map((brand, index) => (
               <div
                 key={`${brand.name}-${index}`}
-                className="group flex h-14 w-28 shrink-0 items-center justify-center rounded-md border border-border/60 bg-background/40 px-3"
+                className={`flex h-14 w-28 shrink-0 items-center justify-center rounded-md border px-3 transition-all duration-300 ${
+                  index === activeMobileIndex
+                    ? "border-border/60 bg-background/70"
+                    : "border-border/60 bg-background/40"
+                }`}
               >
                 <Image
                   src={brand.src}
                   alt={`${brand.name} logo`}
                   width={120}
                   height={40}
-                  className="h-7 w-auto object-contain opacity-80 grayscale"
+                  className={`h-7 w-auto object-contain transition-all duration-300 ${
+                    index === activeMobileIndex ? "opacity-100 grayscale-0" : "opacity-70 grayscale"
+                  }`}
                 />
               </div>
             ))}
