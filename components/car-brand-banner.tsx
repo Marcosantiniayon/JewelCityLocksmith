@@ -46,7 +46,7 @@ export function CarBrandBanner() {
     if (!container) return
 
     let animationFrame = 0
-    const step = 0.8
+    const step = 0.5
 
     const animate = () => {
       if (!isPausedRef.current) {
