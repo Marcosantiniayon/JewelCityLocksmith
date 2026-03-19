@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 
 const carBrands = [
@@ -23,13 +26,85 @@ const carBrands = [
 ]
 
 export function CarBrandBanner() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isPausedRef = useRef(false)
+  const scrollingBrands = [...carBrands, ...carBrands]
+
+  const pauseAutoScroll = () => {
+    isPausedRef.current = true
+    if (pauseTimeoutRef.current) {
+      window.clearTimeout(pauseTimeoutRef.current)
+    }
+    pauseTimeoutRef.current = window.setTimeout(() => {
+      isPausedRef.current = false
+    }, 1400)
+  }
+
+  useEffect(() => {
+    const container = scrollContainerRef.current
+    if (!container) return
+
+    let animationFrame = 0
+    const step = 0.8
+
+    const animate = () => {
+      if (!isPausedRef.current) {
+        container.scrollLeft += step
+        const resetPoint = container.scrollWidth / 2
+        if (container.scrollLeft >= resetPoint) {
+          container.scrollLeft -= resetPoint
+        }
+      }
+      animationFrame = window.requestAnimationFrame(animate)
+    }
+
+    animationFrame = window.requestAnimationFrame(animate)
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      if (pauseTimeoutRef.current) {
+        window.clearTimeout(pauseTimeoutRef.current)
+      }
+    }
+  }, [])
+
   return (
-    <section className="border-y border-border/60 bg-card/70 py-8">
+    <section className="border-y border-border/60 bg-card/70 py-6 md:py-8">
       <div className="container mx-auto px-4">
         <p className="text-center text-sm md:text-base font-semibold tracking-wide text-foreground/80">
           Trusted with most major makes and models
         </p>
-        <div className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-7">
+
+        <div className="mt-5 md:hidden">
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-3 overflow-x-auto pb-1 pr-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            onTouchStart={pauseAutoScroll}
+            onTouchMove={pauseAutoScroll}
+            onTouchEnd={pauseAutoScroll}
+            onMouseDown={pauseAutoScroll}
+            onWheel={pauseAutoScroll}
+            aria-label="Car brands"
+          >
+            {scrollingBrands.map((brand, index) => (
+              <div
+                key={`${brand.name}-${index}`}
+                className="group flex h-14 w-28 shrink-0 items-center justify-center rounded-md border border-border/60 bg-background/40 px-3"
+              >
+                <Image
+                  src={brand.src}
+                  alt={`${brand.name} logo`}
+                  width={120}
+                  height={40}
+                  className="h-7 w-auto object-contain opacity-80 grayscale"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 hidden grid-cols-3 gap-3 sm:grid-cols-4 md:grid lg:grid-cols-7">
           {carBrands.map((brand) => (
             <div
               key={brand.name}
