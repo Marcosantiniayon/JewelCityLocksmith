@@ -1,8 +1,26 @@
-const fallbackUrl = "https://jewel-city-locksmith.vercel.app"
+const primarySiteUrl = "https://www.jewelcitylocksmith.com"
 
 function normalizeUrl(url?: string) {
-  if (!url) return fallbackUrl
-  return url.replace(/\/+$/, "")
+  if (!url) return primarySiteUrl
+
+  const input = url.trim()
+  const withProtocol = /^https?:\/\//i.test(input) ? input : `https://${input}`
+
+  try {
+    const parsedUrl = new URL(withProtocol)
+
+    // Always emit HTTPS canonical URLs.
+    parsedUrl.protocol = "https:"
+
+    // Force a single canonical host for the production domain.
+    if (/(^|\.)jewelcitylocksmith\.com$/i.test(parsedUrl.hostname)) {
+      parsedUrl.hostname = "www.jewelcitylocksmith.com"
+    }
+
+    return `${parsedUrl.origin}${parsedUrl.pathname}`.replace(/\/+$/, "")
+  } catch {
+    return primarySiteUrl
+  }
 }
 
 const envUrl =
