@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 import Script from "next/script"
 
 declare global {
@@ -25,15 +25,14 @@ export function GoogleAnalytics({
   measurementId: string
 }) {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
   useEffect(() => {
     if (!pathname) return
 
-    const query = searchParams.toString()
-    const url = query ? `${pathname}?${query}` : pathname
+    const query = window.location.search
+    const url = query ? `${pathname}${query}` : pathname
     trackPageView(url, measurementId)
-  }, [pathname, searchParams, measurementId])
+  }, [pathname, measurementId])
 
   return (
     <>
