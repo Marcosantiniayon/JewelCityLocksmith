@@ -2,11 +2,13 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { GoogleAnalytics } from "@/components/google-analytics"
 import "./globals.css"
 import { siteConfig } from "@/lib/site"
 
 const _inter = Inter({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -75,6 +77,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
+        {googleAnalyticsId ? (
+          <GoogleAnalytics measurementId={googleAnalyticsId} />
+        ) : null}
         {children}
         <Analytics />
       </body>
